@@ -44,12 +44,12 @@ async def comprar_contas_list(c: Client, m: CallbackQuery):
         inline_keyboard=[
             [
                 InlineKeyboardButton("🛒 COMPRAR LOGINS", callback_data="comprar_contas unit"),
-               # InlineKeyboardButton("🛒 GMAIL", callback_data="comprar_logins unit"),
+                InlineKeyboardButton("🛒 GMAIL", callback_data="comprar_logins unit"),
                 
                 
             ],
 	    [
-		InlineKeyboardButton("🛒 DADOS CPF LIVRE", callback_data="comprar_vales unit"
+		InlineKeyboardButton("🛒 DADOS CPF LIVRE", callback_data="comprar_vales unit"),
 	    ],
              
             [
