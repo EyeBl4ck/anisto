@@ -43,7 +43,7 @@ async def comprar_contas_list(c: Client, m: CallbackQuery):
     kb = InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton("🛒 COMPRAR LOGINS", callback_data="comprar_contas unit"),
+                InlineKeyboardButton("🛒 CONTA BETANO", callback_data="comprar_contas unit"),
                 InlineKeyboardButton("🛒 GMAIL", callback_data="comprar_login unit"),
                 
                 
