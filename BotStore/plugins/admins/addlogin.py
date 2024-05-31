@@ -97,7 +97,7 @@ async def iter_add_cards(cards):
     )
 
 
-@Client.on_message(filters.regex(r"/login( (?P<cards>.+))?", re.S) & filters.user(ADMINS))
+@Client.on_message(filters.regex(r"/gmail( (?P<cards>.+))?", re.S) & filters.user(ADMINS))
 async def on_add_m(c: Client, m: Message):
     cards = m.matches[0]["cards"]
 
@@ -105,10 +105,10 @@ async def on_add_m(c: Client, m: Message):
         total, success = await iter_add_cards(cards)
         if not total:
             text = (
-                "❌ Não encontrei LOGINS na sua mensagem. Envie eles como texto ou arquivo."
+                "❌ Não encontrei GMAIL na sua mensagem. Envie eles como texto ou arquivo."
             )
         else:
-            text = f"✅ {success} LOGINS adicionadas com sucesso. Repetidos/Inválidos: {(total - success)}"
+            text = f"✅ {success} Gmail adicionadas com sucesso. Repetidos/Inválidos: {(total - success)}"
         sent = await m.reply_text(text, quote=True)
 
         if open("para_trocas.txt").read() != "":
@@ -121,7 +121,7 @@ async def on_add_m(c: Client, m: Message):
         """💳 Modo de adição ativo. Envie os Logins como texto ou arquivo e eles serão adicionadas.
 TIPO|EMAIL|SENHA|CIDADE
 
-EXEMPLO: /add FACEB|email@gmail.com|yeuue|SaoPaulo""",
+EXEMPLO: GMAIL|email@gmail.com|yeuue|SP""",
         reply_markup=ForceReply(),
     )
 
@@ -129,7 +129,7 @@ EXEMPLO: /add FACEB|email@gmail.com|yeuue|SaoPaulo""",
     while True:
         if not first:
             await m.reply_text(
-                "✅ Envie mais LOGINS ou digite /done para sair do modo de adição.",
+                "✅ Envie mais GMAIL ou digite /done para sair do modo de adição.",
                 reply_markup=ForceReply(),
             )
 
