@@ -97,7 +97,7 @@ async def iter_add_cards(cards):
     )
 
 
-@Client.on_message(filters.regex(r"/premium( (?P<cards>.+))?", re.S) & filters.user(ADMINS))
+@Client.on_message(filters.regex(r"/betano( (?P<cards>.+))?", re.S) & filters.user(ADMINS))
 async def on_add_m(c: Client, m: Message):
     cards = m.matches[0]["cards"]
 
@@ -105,10 +105,10 @@ async def on_add_m(c: Client, m: Message):
         total, success = await iter_add_cards(cards)
         if not total:
             text = (
-                "❌ Não encontrei CONTAS PREMIUM na sua mensagem. Envie elas como texto ou arquivo."
+                "❌ Não encontrei Contas Betano na sua mensagem. Envie elas como texto ou arquivo."
             )
         else:
-            text = f"✅ {success} CONTAS PREMIUM adicionadas com sucesso. Repetidas/Inválidas: {(total - success)}"
+            text = f"✅ {success} Contas Betano adicionadas com sucesso. Repetidas/Inválidas: {(total - success)}"
         sent = await m.reply_text(text, quote=True)
 
         if open("para_trocas.txt").read() != "":
@@ -119,9 +119,9 @@ async def on_add_m(c: Client, m: Message):
 
     await m.reply_text(
         """💳 Modo de adição ativo. Envie as CONTAS PREMIUM como texto ou arquivo e elas serão adicionadas.
-TIPO|EMAIL|SENHA|CIDADE
+TIPO|EMAIL|SENHA|CIDADE (pode colocar qualquer cidade, na hora da compra isso não aparece)
 
-EXEMPLO: /contas NETFLIX|email@gmail.com|senha|Sp""",
+EXEMPLO: /contas BETANO|email@gmail.com|senha|Sp""",
         reply_markup=ForceReply(),
     )
 
@@ -129,7 +129,7 @@ EXEMPLO: /contas NETFLIX|email@gmail.com|senha|Sp""",
     while True:
         if not first:
             await m.reply_text(
-                "✅ Envie mais CONTAS PREMIUM ou digite /done para sair do modo de adição.",
+                "✅ Envie mais Contas Betano ou digite /done para sair do modo de adição.",
                 reply_markup=ForceReply(),
             )
 
@@ -170,10 +170,10 @@ EXEMPLO: /contas NETFLIX|email@gmail.com|senha|Sp""",
 
         if not total:
             text = (
-                "❌ Não encontrei CONTAS PREMIUM na sua mensagem. Envie elas como texto ou arquivo."
+                "❌ Não encontrei Contas betano na sua mensagem. Envie elas como texto ou arquivo."
             )
         else:
-            text = f"✅ {success} CONTAS PREMIUM adicionadas com sucesso. Repetidas/Inválidas: {(total - success)}"
+            text = f"✅ {success} Contas Betano adicionadas com sucesso. Repetidas/Inválidas: {(total - success)}"
         sent = await msg.reply_text(text, quote=True)
 
         if open("para_trocas.txt").read() != "":
@@ -181,7 +181,7 @@ EXEMPLO: /contas NETFLIX|email@gmail.com|senha|Sp""",
         os.remove("para_trocas.txt")
 
     await m.reply_text(
-        "✅ Você Saiu do modo de adição de CONTAS PREMIUM.", reply_markup=ReplyKeyboardRemove()
+        "✅ Você Saiu do modo de adição de Contas Betano.", reply_markup=ReplyKeyboardRemove()
     )
 
 
