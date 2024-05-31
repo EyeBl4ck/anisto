@@ -44,7 +44,10 @@ async def panel(c: Client, m: Union[Message, CallbackQuery]):
              InlineKeyboardButton("📊 Estoque DOCS", callback_data="stockdoc docscnh"),],
 			[
 				InlineKeyboardButton("📊 Estoque BETANO", callback_data="stockcontas contas"),
-			]
+			],
+			[
+				InlineKeyboardButton("📊 Estoque VALES", callback_data="stockvaless vales")
+	]
             
         ]
     )
