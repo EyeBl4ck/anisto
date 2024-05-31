@@ -60,7 +60,7 @@ async def change_prices1(c: Client, m: CallbackQuery):
             ],
           
 			[
-				InlineKeyboardButton("💳 DOC", callback_data="change_price2 contas"),
+				InlineKeyboardButton("💳 CONTAS BETANO", callback_data="change_price1 contas"),
 			],
              
             [
