@@ -165,7 +165,7 @@ async def comprar_vales(c: Client, m: CallbackQuery):
 
     if not levels_list:
         return await m.answer(
-            "⚠️ Não há vales disponíveis no momento, tente novamente mais tarde.",
+            "⚠️ Não há dados disponíveis no momento, tente novamente mais tarde.",
             show_alert=True,
         )
 
@@ -193,23 +193,14 @@ async def comprar_vales(c: Client, m: CallbackQuery):
     ).fetchall()
 
     
-    total = f"\n\n<b>🧿 Total de Vales</b>: {sum([int(x[1]) for x in logins])}" if logins else ""
-    organ.append([InlineKeyboardButton(
-                    "🛒 Buscar Vales via Inline",
-                    switch_inline_query_current_chat="buscarva_tipo A",
-                )])
-    organ.append([InlineKeyboardButton(
-                    "☂️ Buscar Vales por Cidade",
-                    switch_inline_query_current_chat="buscarva_cidade Paulo",
-                )])
+    total = f"\n\n<b>🧿 Total de Dados</b>: {sum([int(x[1]) for x in logins])}" if logins else ""
     
-    organ.append([InlineKeyboardButton(text="❮ ❮", callback_data="comprar_vale")])
+    organ.append([InlineKeyboardButton(text="❮ ❮", callback_data="comprar_contas")])
     kb = InlineKeyboardMarkup(inline_keyboard=organ)
     await m.edit_message_text(
-        f"""<b>👾 Comprar Vales Unitário</b>
-<i>- Qual o tipo de VALES que você deseja comprar?</i>
+        f"""<b>👾 Comprar Dados CPF Livre</b>
+<i>- Qual o tipo de DADOS que você deseja comprar?</i>
 
-<b>⚠️ Caso queira VALES específicos, pesquise via Inline no bot abaixo🔍</b>
 
 {total}
 
@@ -248,7 +239,7 @@ async def buy_off_vales(c: Client, m: CallbackQuery):
     ).fetchone()
 
     if not selected_vales:
-        return await m.answer("⚠️ Sem vales disponiveis para este nivel.", show_alert=True)
+        return await m.answer("⚠️ Sem Dados disponiveis para este nivel.", show_alert=True)
 
     diamonds = round(((price / 100) * 8), 2)
     new_balance = balance - price
@@ -304,7 +295,7 @@ async def buy_off_vales(c: Client, m: CallbackQuery):
                     inline_keyboard=[
                         [
                             InlineKeyboardButton(
-                                text="💳 Compre os melhores Vales",url=f"https://t.me/Lonsepo"
+                                text="💳 Compre os melhores Dados",url=f"https://t.me/Lonsepo"
                             ),
                         ],
                     ]
