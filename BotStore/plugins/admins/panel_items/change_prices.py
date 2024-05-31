@@ -56,7 +56,7 @@ async def change_prices(c: Client, m: CallbackQuery):
                 InlineKeyboardButton("💳 Full", callback_data="change_pricefull full"),
                 InlineKeyboardButton("💳 Logins", callback_data="change_price1 logins"),
                 InlineKeyboardButton("💳 DOC", callback_data="change_price_doc docs"),
-		InlineKeyboardButton("💳 DADOS CPF LIVRE", callback_data="change_prince2 vales"),
+		InlineKeyboardButton("💳 DADOS CPF LIVRE", callback_data="change_princes2 vales"),
             ],
 			[
 				InlineKeyboardButton("💳 CONTAS PREMIUM", callback_data="change_price2 contas"),
