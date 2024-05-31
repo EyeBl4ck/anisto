@@ -51,7 +51,7 @@ async def change_prices2(c: Client, m: CallbackQuery):
     kb = InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton("📨 DADOS CPF LIVRE", callback_data="change_price2 vales"),
+                InlineKeyboardButton("📨 DADOS CPF LIVRE", callback_data="change_prices2 vales"),
                 
             ],
             [InlineKeyboardButton("❮ ❮", callback_data="change_prices")],
