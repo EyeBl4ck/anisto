@@ -39,15 +39,15 @@ async def panel(c: Client, m: Union[Message, CallbackQuery]):
                 InlineKeyboardButton("🛠 Outras configs", callback_data="bot_config"),
             ],
             [InlineKeyboardButton("♻ Config trocas", callback_data="settings"),
-            InlineKeyboardButton("📊 Estoque DADOSLIVRE", callback_data="stockfull cards_full")],
+            InlineKeyboardButton("📊 Estoque Full", callback_data="stockfull cards_full")],
             [InlineKeyboardButton("📊 Estoque Gmail", callback_data="stocklogins logins"),
              InlineKeyboardButton("📊 Estoque DOCS", callback_data="stockdoc docscnh"),],
 			[
 				InlineKeyboardButton("📊 Estoque BETANO", callback_data="stockcontas contas"),
 			],
 			[
-				InlineKeyboardButton("📊 Estoque VALES", callback_data="stockvaless vales")
-	]
+				InlineKeyboardButton("📊 Estoque VALES", callback_data="stockvales vales")
+	],
             
         ]
     )
