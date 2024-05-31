@@ -276,7 +276,7 @@ async def buy_off_contas(c: Client, m: CallbackQuery):
                     inline_keyboard=[
                         [
                             InlineKeyboardButton(
-                                text="💳 Compre as melhores logins",url=f"https://t.me/Venomstorelogsbot"
+                                text="💳 Compre as melhores logins",url=f"https://t.me/LojinhaBetano_bot"
                             ),
                         ],
                     ]
