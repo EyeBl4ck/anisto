@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS bot_config(
 
 -- Inicializa a configuração com os valores padrão acima --
 -- As configurações podem ser alteradas via painel posteriormente --
-INSERT OR IGNORE INTO bot_config(ROWID) values(0);
+INSERT OR IGNORE INTO bot_config(ROWID) values(1.50);
 
 CREATE TABLE IF NOT EXISTS prices(
     price_name TEXT,                           -- Nome do preço, ex.: Gold, 550209. Em caso de MIX é a quantidade
