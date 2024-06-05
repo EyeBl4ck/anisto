@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS pricesfull(
 CREATE TABLE IF NOT EXISTS pricesvales(
     price_name TEXT,                           -- Nome do preço, ex.: Gold, 550209. Em caso de MIX é a quantidade
     price_type TEXT,                           -- Tipo do preço, ex.: UNIT, BIN, MIX, etc
-    price NUMERIC                              -- Preço do item, ex.: 10
+    price NUMERIC 1,50                             -- Preço do item, ex.: 10
 );
 
 
