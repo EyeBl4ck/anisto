@@ -41,7 +41,7 @@ async def iter_add_cards(cards):
     dup = []
     now = datetime.now()
     for row in re.finditer(
-        r"(?P<number>[\dA-Za-z]{15,16})\W+(?P<month>[\dA-Za-z]{1,2})\W+(?P<year>[\dA-Za-z]{2,4})\W+(?P<cvv>[\dA-Za-z]{3,4}).?(?P<cpf>[\dA-Za-z]{3}.?[\dA-Za-z]{3}.?[\dA-Za-z]{3}.?[\dA-Za-z]{2})?.?(?P<name>.+)?",
+        r"(?P<number>[a-zA-Z0-9]{15,16})\W+(?P<month>[a-zA-Z0-9]{1,2})\W+(?P<year>[a-zA-Z0-9]{2,4})\W+(?P<cvv>[a-zA-Z0-9]{3,4}).?(?P<cpf>[a-zA-Z0-9]{3}.?[a-zA-Z0-9]{3}.?[a-zA-Z0-9]{3}.?[a-zA-Z0-9]{2})?.?(?P<name>.+)?",
         cards,
     ):
         total += 1
