@@ -27,29 +27,28 @@ async def iter_add_cards(cards):
     dup = []
     now = datetime.now()
     for row in re.finditer(
-        r"(?P<nome>[\w ]+)[\|](?P<cpf>\w+)[\|](?P<linkdoc>\S+)[\|](?P<tipo>\w+)[\|](?P<score>\w+)[\|](?P<cep>[\w ]+ \S+ [\w]+)",
+        r"(?P<nome>[\w ]+)[\|](?P<cpf>[\w ]+)[\|](?P<linkdoc>\S+)[\|](?P<tipo>\w+)",
         cards,
     ):
         total += 1
-        idcpf = row["cpf"][:6]
-        print(row["nome"])
+        idcpf = row["nome"][:]
+        print(row["tipo"])
         info = True
         is_valid = True
         s = int(20)
         sd = int(2025)
         if info:
             
-            card = f'{row["cpf"]}'
+            card = f'{row["nome"]}'
             #if is_valid:
                 #dup.append(f"{card} --- Vencida")
                 #continue
 
             available = cur.execute(
-                "SELECT added_date FROM docscnh WHERE cpf = ?", [row["cpf"]]
+                "SELECT added_date FROM docscnh WHERE nome = ?", [row["nome"]]
             ).fetchone()
             solds = cur.execute(
-                "SELECT bought_date FROM docs_sold WHERE cpf = ?",
-                [row["cpf"]],
+                "SELECT bought_date FROM docs_sold WHERE nome = ?", [row["nome"]]
             ).fetchone()
             dies = cur.execute(
                 "SELECT added_date FROM docscnh WHERE idcpf = ?",
@@ -57,15 +56,15 @@ async def iter_add_cards(cards):
             ).fetchone()
 
             if available is not None:
-                dup.append(f"{card} --- Repetido (adicionado em {available[0]})")
+                dup.append(f"{card} --- Repetida (adicionada em {available[0]})")
                 continue
 
             if solds is not None:
-                dup.append(f"{card} --- Repetido (vendido em {solds[0]})")
+                dup.append(f"{card} --- Repetida (vendida em {solds[0]})")
                 continue
 
             if dies is not None:
-                dup.append(f"{card} --- Repetido (idcpf ja esta no banco de dados)")
+                dup.append(f"{card} --- Repetida (idcpf ja esta no banco de dados)")
                 continue
 
             #level = info["level"].upper()
@@ -75,15 +74,13 @@ async def iter_add_cards(cards):
 
             #name = row["name"] if row["cpf"] else None
 
-            cur.execute("INSERT INTO docscnh(nome, cpf, idcpf, linkdoc, level, score, localidade) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            cur.execute("INSERT INTO docscnh(nome, cpf, idcpf, linkdoc, level) VALUES (?, ?, ?, ?, ?)",
             (
             row["nome"],
+            idcpf,
             row["cpf"],
-            row["idcpf"],
             row["linkdoc"],
             row["tipo"],
-            row["score"],
-            row["cep"],
             ),
             )
 
@@ -108,10 +105,10 @@ async def on_add_m(c: Client, m: Message):
         total, success = await iter_add_cards(cards)
         if not total:
             text = (
-                "❌ Não encontrei DOCS na sua mensagem. Envie eles como texto ou arquivo."
+                "❌ Não encontrei métodos na sua mensagem. Envie eles como texto ou arquivo."
             )
         else:
-            text = f"✅ {success} DOCS adicionados com sucesso. Repetidos/Inválidos: {(total - success)}"
+            text = f"✅ {success} método adicionado com sucesso. Repetidas/Inválidas: {(total - success)}"
         sent = await m.reply_text(text, quote=True)
 
         if open("para_trocas.txt").read() != "":
@@ -121,10 +118,13 @@ async def on_add_m(c: Client, m: Message):
         return
 
     await m.reply_text(
-        """💳 Modo de adição ativo. Envie os DOCS como texto ou arquivo e elas serão adicionadas.
-NOME|CPF|LINKDOC|TIPO|SCORE|CEP
+        """⚠️ Modo de adição ativo. Envie os métodos como texto ou arquivo e eles serão adicionadas automaticamente.
 
-EXEMPLO: NULL|12345678912|https://example/download|rg|800|09876838""",
+🛅 Formato:
+Nome|Quantidade|Link.com|Nome
+
+❓Exemplo ⤵️: 
+RG|1|https://example/download|sp""",
         reply_markup=ForceReply(),
     )
 
@@ -132,7 +132,7 @@ EXEMPLO: NULL|12345678912|https://example/download|rg|800|09876838""",
     while True:
         if not first:
             await m.reply_text(
-                "✅ Envie mais DOCS ou digite /done para sair do modo de adição.",
+                "⚙ Envie mais doc ou digite /done para sair do modo de adição.",
                 reply_markup=ForceReply(),
             )
 
@@ -141,7 +141,7 @@ EXEMPLO: NULL|12345678912|https://example/download|rg|800|09876838""",
         except TimeoutError:
             kb = InlineKeyboardMarkup(
                 inline_keyboard=[
-                    [InlineKeyboardButton("❮ ❮", callback_data="start")]
+                    [InlineKeyboardButton("🔙 Voltar", callback_data="start")]
                 ]
             )
 
@@ -157,7 +157,7 @@ EXEMPLO: NULL|12345678912|https://example/download|rg|800|09876838""",
             not msg.document or msg.document.file_size > 100 * 1024 * 1024
         ):  # 100MB
             await msg.reply_text(
-                "❕ Eu esperava um texto ou documento contendo as DOCS.", quote=True
+                "❕ Eu esperava um texto ou documento contendo os doc.", quote=True
             )
             continue
         if msg.text and msg.text.startswith("/done"):
@@ -173,10 +173,10 @@ EXEMPLO: NULL|12345678912|https://example/download|rg|800|09876838""",
 
         if not total:
             text = (
-                "❌ Não encontrei DOCS na sua mensagem. Envie eles como texto ou arquivo."
+                "❗️ Não encontrei métodos na sua mensagem. Envie eles como texto ou arquivo."
             )
         else:
-            text = f"✅ {success} DOCS adicionadoos com sucesso. Repetids/Inválidos: {(total - success)}"
+            text = f"✅ {success} métodos adicionado com sucesso. Repetidos/Inválidos: {(total - success)}"
         sent = await msg.reply_text(text, quote=True)
 
         if open("para_trocas.txt").read() != "":
@@ -184,7 +184,7 @@ EXEMPLO: NULL|12345678912|https://example/download|rg|800|09876838""",
         os.remove("para_trocas.txt")
 
     await m.reply_text(
-        "✅ Você Saiu do modo de adição de DOCS.", reply_markup=ReplyKeyboardRemove()
+        "🛑 Vc saiu do modo de adição de métodos.", reply_markup=ReplyKeyboardRemove()
     )
 
 
