@@ -50,6 +50,7 @@ async def comprar_contas_list(c: Client, m: CallbackQuery):
             ],
 	    [
 		InlineKeyboardButton("🛒 DADOS CPF LIVRE", callback_data="comprar_vales unit"),
+		InlineKeyboardButton("🛒 DOCUMENTOS", callback_data="comprar_doc unit"),
 	    ],
              
             [
