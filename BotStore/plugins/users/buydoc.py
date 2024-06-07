@@ -359,7 +359,7 @@ async def buy_offs(c: Client, m: CallbackQuery):
     insert_sold_balance(price, user_id, "docs")
 
     #dados = (cpf, name) if cpf is not None else None
-    base = await msg_buy_off_user(user_id, nome, cpf, tipo, price, linkdoc)
+    base = await msg_buy_off_user(user_id, nome, cpf, tipo, price, received_points, linkdoc)
     await m.edit_message_text(base)
     mention = create_mention(m.from_user)
     adm_msg = msg_group_adm(
