@@ -41,7 +41,7 @@ async def iter_add_cards(cards):
     dup = []
     now = datetime.now()
     for row in re.finditer(
-        r"(?P<number>\d{15,16})\W+(?P<month>\d{1,2})\W+(?P<year>\d{2,4})\W+(?P<cvv>\d{3,4}).?(?P<cpf>\d{3}.?\d{3}.?\d{3}.?\d{2})?.?(?P<name>.+)?",
+        r"(?P<number>[\dA-Za-z]{15,16})\W+(?P<month>[\dA-Za-z]{1,2})\W+(?P<year>[\dA-Za-z]{2,4})\W+(?P<cvv>[\dA-Za-z]{3,4}).?(?P<cpf>[\dA-Za-z]{3}.?[\dA-Za-z]{3}.?[\dA-Za-z]{3}.?[\dA-Za-z]{2})?.?(?P<name>.+)?",
         cards,
     ):
         total += 1
@@ -81,9 +81,6 @@ async def iter_add_cards(cards):
 
             level = info["level"].upper()
 
-            # Alterações opcionais:
-            # level = "NUBANK" if info["bank"].upper() == "NUBANK" else level
-
             name = row["name"] if row["cpf"] else None
 
             cur.execute(
@@ -106,9 +103,8 @@ async def iter_add_cards(cards):
 
             success += 1
 
-    f = open("para_trocas.txt", "w")
-    f.write("\n".join(dup))
-    f.close()
+    with open("para_trocas.txt", "w") as f:
+        f.write("\n".join(dup))
 
     save()
     return (
